@@ -1,0 +1,17 @@
+<h2>Demandes de personnel</h2>
+<table border="1">
+  <tr>
+    <th>Entreprise</th>
+    <th>Poste recherché</th>
+    <th>Contact</th>
+    <th>Date</th>
+  </tr>
+  {% for d in demandes %}
+  <tr>
+    <td>{{ d.nom_entreprise }}</td>
+    <td>{{ d.poste_recherche }}</td>
+    <td>{{ d.contact }}</td>
+    <td>{{ d.date_soumission }}</td>
+  </tr>
+  {% endfor %}
+</table>

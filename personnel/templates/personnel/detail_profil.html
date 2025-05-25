@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Détail du Profil{% endblock %}
+
+{% block content %}
+<h2>{{ profil.utilisateur.username }}</h2>
+<p><strong>Compétences :</strong> {{ profil.competences }}</p>
+<p><strong>Expérience :</strong> {{ profil.experience }}</p>
+
+{% if profil.photo %}
+  <img src="{{ profil.photo.url }}" alt="Photo de {{ profil.utilisateur.username }}" class="img-thumbnail my-3" width="200">
+{% endif %}
+
+<a href="{% url 'recruter' profil.id %}" class="btn btn-primary">Recruter ce profil</a>
+{% endblock %}

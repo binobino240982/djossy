@@ -1,0 +1,15 @@
+{% extends 'base.html' %}
+
+{% block title %}Recruter {{ profil.nom }}{% endblock %}
+
+{% block content %}
+<h2 class="mb-3">Formulaire de recrutement pour <strong>{{ profil.nom }}</strong></h2>
+
+<form method="post" enctype="multipart/form-data" class="card p-4 shadow-sm">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit" class="btn btn-success">Envoyer la candidature</button>
+</form>
+
+<a href="{% url 'detail_profil' profil.id %}" class="btn btn-link mt-3">← Retour au profil</a>
+{% endblock %}

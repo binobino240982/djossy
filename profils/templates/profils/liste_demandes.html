@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Liste des demandes de personnel</h1>
+
+<ul>
+  {% for demande in demandes %}
+    <li>
+      <strong>{{ demande.nom_entreprise }}</strong> - {{ demande.contact_email }} - {{ demande.contact_telephone }}<br>
+      {{ demande.description_demande|linebreaks }}
+    </li>
+  {% empty %}
+    <li>Aucune demande enregistrée.</li>
+  {% endfor %}
+</ul>
+
+<a href="{% url 'admin_dashboard' %}">Retour au tableau de bord</a>
+{% endblock %}

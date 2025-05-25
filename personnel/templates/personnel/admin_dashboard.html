@@ -1,0 +1,26 @@
+{% extends 'admin/base_site.html' %}
+{% load static %}
+
+{% block content %}
+<h1>Tableau de bord administratif</h1>
+
+<div style="display: flex; gap: 30px; flex-wrap: wrap;">
+  <div class="card p-3 border bg-light">
+    <h4>Total Candidatures : {{ total_candidatures }}</h4>
+    <ul>
+      {% for item in stats_candidatures %}
+        <li><strong>{{ item.statut|title }}</strong> : {{ item.total }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+
+  <div class="card p-3 border bg-light">
+    <h4>Total Demandes de personnel : {{ total_demandes }}</h4>
+    <ul>
+      {% for item in stats_demandes %}
+        <li><strong>{{ item.statut|title }}</strong> : {{ item.total }}</li>
+      {% endfor %}
+    </ul>
+  </div>
+</div>
+{% endblock %}

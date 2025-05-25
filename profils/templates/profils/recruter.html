@@ -1,0 +1,11 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Recruter {{ profil.prenom }} {{ profil.nom }}</h1>
+
+<form method="post">
+  {% csrf_token %}
+  <p>Êtes-vous sûr de vouloir recruter ce profil ?</p>
+  <button type="submit">Confirmer le recrutement</button>
+  <a href="{% url 'detail_profil' profil.id %}">Annuler</a>
+</form>
+{% endblock %}

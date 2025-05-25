@@ -1,0 +1,17 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Tableau de bord administrateur</h1>
+
+<ul>
+  <li>Nombre de profils : {{ nb_profils }}</li>
+  <li>Nombre de candidatures : {{ nb_candidatures }}</li>
+  <li>Nombre de demandes : {{ nb_demandes }}</li>
+</ul>
+
+<p>
+  <a href="{% url 'liste_candidatures' %}">Voir les candidatures</a><br>
+  <a href="{% url 'liste_demandes' %}">Voir les demandes</a><br>
+  <a href="{% url 'exporter_candidatures_csv' %}">Exporter candidatures CSV</a><br>
+  <a href="{% url 'export_candidatures_excel' %}">Exporter candidatures Excel</a>
+</p>
+{% endblock %}

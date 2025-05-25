@@ -1,0 +1,25 @@
+<!-- templates/profils/liste_profils.html -->
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Liste des Profils</title>
+</head>
+<body>
+    <h1>Profils disponibles</h1>
+    <ul>
+        {% for profil in profils %}
+            <li>
+                <strong>{{ profil.prenom }} {{ profil.nom }}</strong> - {{ profil.ville }} ({{ profil.age }} ans)
+                {% if profil.photo %}
+                    <br><img src="{{ profil.photo.url }}" width="100">
+                {% endif %}
+                {% if profil.cv %}
+                    <br><a href="{{ profil.cv.url }}" target="_blank">Voir le CV</a>
+                {% endif %}
+            </li>
+        {% empty %}
+            <li>Aucun profil disponible.</li>
+        {% endfor %}
+    </ul>
+</body>
+</html>

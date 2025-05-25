@@ -1,0 +1,85 @@
+<h2>Liste des candidatures</h2>
+
+<form method="get" style="margin-bottom: 20px;">
+    <label for="statut">Filtrer par statut :</label>
+    <select name="statut" onchange="this.form.submit()">
+        <option value="">Tous</option>
+        <option value="nouvelle" {% if request.GET.statut == "nouvelle" %}selected{% endif %}>Nouvelles</option>
+        <option value="en_cours" {% if request.GET.statut == "en_cours" %}selected{% endif %}>En cours</option>
+        <option value="acceptee" {% if request.GET.statut == "acceptee" %}selected{% endif %}>Acceptées</option>
+        <option value="rejetee" {% if request.GET.statut == "rejetee" %}selected{% endif %}>Rejetées</option>
+    </select>
+</form>
+
+<a href="{% url 'exporter_candidatures_csv' %}" class="btn btn-success">📤 Exporter en CSV</a>
+<a href="{% url 'export_candidatures_excel' %}" class="btn btn-success mb-3">
+  Exporter les candidatures en Excel
+</a>
+
+<form method="get" class="mb-3">
+  <label>Filtrer par statut :</label>
+  <select name="statut" onchange="this.form.submit()">
+    <option value="">Tous</option>
+    <option value="nouvelle">Nouvelle</option>
+    <option value="en_cours">En cours</option>
+    <option value="acceptee">Acceptée</option>
+    <option value="rejetee">Rejetée</option>
+  </select>
+</form>
+
+<table class="table table-bordered mt-3">
+  <thead>
+    <tr>
+      <th>Nom</th>
+      <th>Email</th>
+      <th>Poste</th>
+      <th>Statut</th>
+      <th>Date</th>
+    </tr>
+  </thead>
+  <tbody>
+    {% for c in candidatures %}
+    <tr>
+      <td>{{ c.nom }}</td>
+      <td>{{ c.email }}</td>
+      <td>{{ c.poste_souhaite }}</td>
+      <td>
+        {% if c.statut == 'nouvelle' %}
+          <span class="badge bg-warning text-dark">Nouvelle</span>
+        {% elif c.statut == 'en_cours' %}
+          <span class="badge bg-info text-dark">En cours</span>
+        {% elif c.statut == 'acceptee' %}
+          <span class="badge bg-success">Acceptée</span>
+        {% elif c.statut == 'rejetee' %}
+          <span class="badge bg-danger">Rejetée</span>
+        {% else %}
+          <span class="badge bg-secondary">Inconnu</span>
+        {% endif %}
+      </td>
+      <td>{{ c.date_postulation }}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+<nav>
+  <ul class="pagination justify-content-center">
+    {% if candidatures.has_previous %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ candidatures.previous_page_number }}">&laquo;</a>
+      </li>
+    {% endif %}
+
+    {% for num in candidatures.paginator.page_range %}
+      <li class="page-item {% if num == candidatures.number %}active{% endif %}">
+        <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+      </li>
+    {% endfor %}
+
+    {% if candidatures.has_next %}
+      <li class="page-item">
+        <a class="page-link" href="?page={{ candidatures.next_page_number }}">&raquo;</a>
+      </li>
+    {% endif %}
+  </ul>
+</nav>

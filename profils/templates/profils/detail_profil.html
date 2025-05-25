@@ -1,0 +1,16 @@
+{% extends "base.html" %}
+{% block content %}
+<h1>Profil : {{ profil.prenom }} {{ profil.nom }}</h1>
+
+{% if profil.photo %}
+  <img src="{{ profil.photo.url }}" alt="Photo de {{ profil.prenom }}">
+{% endif %}
+
+<p><strong>Description :</strong> {{ profil.description }}</p>
+<p><strong>Compétences :</strong> {{ profil.competences }}</p>
+<p><strong>Expérience :</strong> {{ profil.experience }}</p>
+<p><strong>Disponible :</strong> {{ profil.disponibilite|yesno:"Oui,Non" }}</p>
+
+<a href="{% url 'recruter' profil.id %}">Recruter ce profil</a>
+<a href="{% url 'liste_profils' %}">Retour à la liste</a>
+{% endblock %}
