@@ -81,9 +81,15 @@ WSGI_APPLICATION = 'djossy.wsgi.application'
 
 DATABASES = {
     'default': {
-        'default': dj_database_url.config(default=config('DATABASE_URL'))
+        'ENGINE': 'django.db.backends.postgresql',
+        'NAME': 'djossy_db',       # à créer dans l'étape suivante
+        'USER': 'postgres',
+        'PASSWORD': 'angerevel240982', # que tu as choisi à l’installation
+        'HOST': 'localhost',
+        'PORT': '5432',
     }
 }
+
 
 
 # Password validation
