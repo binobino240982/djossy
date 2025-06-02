@@ -1,0 +1,15 @@
+services:
+  - type: web
+    name: djossy
+    env: python
+    buildCommand: ""
+    startCommand: gunicorn djossy.wsgi
+    envVars:
+      - key: DJANGO_SETTINGS_MODULE
+        value: djossy.settings
+      - key: PYTHON_VERSION
+        value: 3.11
+      - key: SECRET_KEY
+        generateValue: true
+      - key: DEBUG
+        value: "True"
