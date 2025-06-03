@@ -6,6 +6,7 @@ from gestion_admin.views import accueil_dashboard  # Vue d'accueil publique
 
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path('', include('main.urls')),  # On inclut les URLs de l'app main
     path('', accueil_dashboard, name='accueil_dashboard'),  # Page d’accueil publique
 
     path('admin-panel/', include('gestion_admin.urls')),     # Dashboard admin

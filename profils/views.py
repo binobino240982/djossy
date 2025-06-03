@@ -1,5 +1,6 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
+from django.shortcuts import render
 from .models import Profil, Candidature, DemandePersonnel
 from .forms import DemandePersonnelForm, CandidatureForm
 import csv
@@ -106,3 +107,6 @@ def export_candidatures_excel(request):
     response['Content-Disposition'] = 'attachment; filename=candidatures.xlsx'
     wb.save(response)
     return response
+
+def ma_page_profil(request):
+    return render(request, 'profil.html')

@@ -6,6 +6,7 @@ from . import views
 app_name = 'profils'  # important si tu utilises {% url 'profils:nom_vue' %}
 
 urlpatterns = [
+    path('', views.ma_page_profil, name='profil'),
     path('', views.liste_profils, name='liste_profils'),
     path('<int:profil_id>/', views.detail_profil, name='detail_profil'),
     path('<int:profil_id>/recruter/', views.recruter, name='recruter'),
