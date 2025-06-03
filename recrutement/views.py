@@ -1,3 +1,5 @@
 from django.shortcuts import render
 
-# Create your views here.
+def recrutement_accueil(request):
+    return render(request, 'recrutement/accueil.html')
+

@@ -4,6 +4,8 @@ from . import views
 app_name = 'personnel'  # Ajoute un namespace pour éviter les conflits dans les noms d'URL
 
 urlpatterns = [
+    path('', views.personnel_accueil, name='personnel_accueil'),
+    
     # Pages accessibles à tous
     path('', views.liste_profils, name='liste_profils'),  # Liste tous les profils
     path('<int:profil_id>/', views.detail_profil, name='detail_profil'),  # Détail d'un profil

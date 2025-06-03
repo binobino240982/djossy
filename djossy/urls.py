@@ -6,15 +6,21 @@ from gestion_admin.views import accueil_dashboard  # Vue d'accueil publique
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('main.urls')),  # On inclut les URLs de l'app main
-    path('', accueil_dashboard, name='accueil_dashboard'),  # Page d’accueil publique
 
-    path('admin-panel/', include('gestion_admin.urls')),     # Dashboard admin
-    path('profils/', include('profils.urls')),               # Affichage des profils
-    path('comptes/', include('comptes.urls')),               # Connexion / inscription
-    path('recrutement/', include('personnel.urls')),         # Candidatures et demandes
+    # Page d'accueil publique (remplace le site par défaut)
+    path('', accueil_dashboard, name='accueil_dashboard'),
+
+    # Applications
+    path('admin-panel/', include('gestion_admin.urls')),
+    path('profil/', include('profils.urls')),
+    path('recrutement/', include('recrutement.urls')),
+    path('personnel/', include('personnel.urls')),
+    path('comptes/', include('comptes.urls')),
+
+    # Exemple : si tu veux une app spéciale pour le tableau de bord
+    # path('dashboard/', include('dashboard.urls')),
 ]
 
-# Fichiers média (photos, CV, etc.)
+# Pour gérer les fichiers médias en mode DEBUG (photos, CV, etc.)
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

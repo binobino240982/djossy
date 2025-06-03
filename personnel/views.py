@@ -63,6 +63,9 @@ def dashboard_admin(request):
 # Accueil du dashboard public
 def accueil_dashboard(request):
     return render(request, 'dashboard.html')
+    
+def personnel_accueil(request):
+    return render(request, 'personnel/accueil.html')
 
 # Liste des candidatures (filtrage possible par statut) - accès admin
 @login_required
