@@ -8,18 +8,21 @@ import os
 from pathlib import Path
 from decouple import config
 import dj_database_url
+import cloudinary
+import cloudinary.uploader
+import cloudinary.api
 
 # BASE_DIR
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # Clé secrète
-SECRET_KEY = 'django-insecure-26ich9t48nes=9!v420nv3pc6p))7&n%h=-lp1n7c9@=%d4j3y'
+SECRET_KEY = config('SECRET_KEY')
 
 # Mode debug
-DEBUG = True  # ✅ Mets False pour le déploiement
+DEBUG = True  # ❗ Mets False en production
 
 # Hôtes autorisés
-ALLOWED_HOSTS = ['*']  # À personnaliser pour le déploiement
+ALLOWED_HOSTS = ['*']  # À ajuster pour la prod
 
 # Applications installées
 INSTALLED_APPS = [
@@ -29,13 +32,15 @@ INSTALLED_APPS = [
     'django.contrib.sessions',
     'django.contrib.messages',
     'django.contrib.staticfiles',
-    
-    # Applications personnalisées
+
+    # Apps personnalisées
     'personnel',
     'comptes',
     'profils',
     'gestion_admin',
     'recrutement',
+
+    # Cloudinary
     'cloudinary',
     'cloudinary_storage',
 ]
@@ -59,7 +64,7 @@ ROOT_URLCONF = 'djossy.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],  # ✅ pour base.html
+        'DIRS': [BASE_DIR / 'templates'],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -72,7 +77,8 @@ TEMPLATES = [
 ]
 
 # Application WSGI
-WSGI_APPLICATION = 'djossy.wsgi.application'
+WSGI_APPLICATION = python nom_du_fichier.py
+
 
 # Base de données
 DATABASES = {
@@ -86,7 +92,7 @@ DATABASES = {
     }
 }
 
-# Validation des mots de passe
+# Validation mot de passe
 AUTH_PASSWORD_VALIDATORS = [
     {'NAME': 'django.contrib.auth.password_validation.UserAttributeSimilarityValidator'},
     {'NAME': 'django.contrib.auth.password_validation.MinimumLengthValidator'},
@@ -110,7 +116,7 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 MEDIA_URL = '/media/'
 MEDIA_ROOT = BASE_DIR / 'media'
 
-# Email via decouple
+# Email (via Gmail ou autre)
 EMAIL_HOST = config('EMAIL_HOST')
 EMAIL_PORT = config('EMAIL_PORT', cast=int)
 EMAIL_USE_TLS = config('EMAIL_USE_TLS', cast=bool)
@@ -121,9 +127,10 @@ DEFAULT_FROM_EMAIL = EMAIL_HOST_USER
 # Utilisateur personnalisé
 AUTH_USER_MODEL = 'comptes.Utilisateur'
 
-# Champ primaire par défaut
+# Champ ID par défaut
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'
 
+# Configuration Cloudinary
 DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 CLOUDINARY_STORAGE = {

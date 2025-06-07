@@ -1,5 +1,17 @@
 from django import forms
 from .models import DemandePersonnel, Candidature
+from .models import ImageUpload
+from .models import Profil
+
+class ProfilForm(forms.ModelForm):
+    class Meta:
+        model = Profil
+        fields = ['nom', 'photo']
+
+class ImageUploadForm(forms.ModelForm):
+    class Meta:
+        model = ImageUpload
+        fields = ['titre', 'image']
 
 class DemandePersonnelForm(forms.ModelForm):
     class Meta:

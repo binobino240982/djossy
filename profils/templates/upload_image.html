@@ -1,0 +1,8 @@
+<h2>Upload une image</h2>
+<form method="post" enctype="multipart/form-data">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Envoyer</button>
+</form>
+<h2>Image envoyée avec succès !</h2>
+<a href="{% url 'upload_image' %}">Revenir à l’upload</a>

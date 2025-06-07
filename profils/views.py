@@ -1,6 +1,18 @@
 from django.shortcuts import render, get_object_or_404, redirect
 from django.http import HttpResponse
 from django.contrib import messages
+from .forms import ImageUploadForm
+from .forms import ProfilForm
+
+def creer_profil(request):
+    if request.method == 'POST':
+        form = ProfilForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('profil_success')
+    else:
+        form = ProfilForm()
+    return render(request, 'profils/creer_profil.html', {'form': form})
 
 # Vue d’accueil
 def profil_accueil(request):
@@ -53,3 +65,16 @@ def exporter_candidatures_csv(request):
 # Exporter les candidatures en Excel
 def export_candidatures_excel(request):
     return HttpResponse("Export Excel - à implémenter")
+
+def upload_image(request):
+    if request.method == 'POST':
+        form = ImageUploadForm(request.POST, request.FILES)
+        if form.is_valid():
+            form.save()
+            return redirect('upload_success')
+    else:
+        form = ImageUploadForm()
+    return render(request, 'upload_image.html', {'form': form})
+
+def upload_success(request):
+    return render(request, 'upload_success.html')

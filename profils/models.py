@@ -35,3 +35,10 @@ class Candidature(models.Model):
 
     def __str__(self):
         return f"Candidature de {self.nom}"
+
+class ImageUpload(models.Model):
+    titre = models.CharField(max_length=100)
+    image = models.ImageField(upload_to='images/')  # Stockée sur Cloudinary
+
+    def __str__(self):
+        return self.titre
