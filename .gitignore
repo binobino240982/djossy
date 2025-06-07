@@ -1,0 +1,87 @@
+# .gitignore pour Django + Render
+
+### Python ###
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.py,cover
+.python-version
+venv/
+env/
+.venv/
+env.bak/
+venv.bak/
+
+### Django ###
+*.log
+*.pot
+*.sqlite3
+*.sql
+db.sqlite3
+db.sqlite3-journal
+
+### Environnement ###
+.env
+.env.local
+.env.development
+.env.production
+.env.*.local
+
+### Fichiers sensibles ###
+secrets.json
+*.key
+*.pem
+*.crt
+*.cer
+
+### Fichiers de sauvegarde ###
+*.bak
+*.backup
+*.save
+*~
+
+### Système ###
+.DS_Store
+Thumbs.db
+desktop.ini
+
+### IDE ###
+.idea/
+.vscode/
+*.code-workspace
+*.sublime-project
+*.sublime-workspace
+
+### Déploiement ###
+.coverage
+htmlcov/
+.pytest_cache/
+.mypy_cache/
+dist/
+build/
+*.egg-info/
+*.egg
+MANIFEST
+pip-wheel-metadata/
+
+### Node (si vous avez du frontend) ###
+node_modules/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+package-lock.json
+yarn.lock
+
+### Fichiers statiques générés ###
+staticfiles/
+media/
+!media/.gitkeep  # Garde le dossier vide
+
+### Fichiers de collecte ###
+*.mo
+*.pot
+
+### Fichiers spécifiques à Render ###
+render.yaml
+render-build.log
