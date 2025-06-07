@@ -77,8 +77,7 @@ TEMPLATES = [
 ]
 
 # Application WSGI
-WSGI_APPLICATION = python nom_du_fichier.py
-
+WSGI_APPLICATION = 'djossy.wsgi.application'
 
 # Base de données
 DATABASES = {
