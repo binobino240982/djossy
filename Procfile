@@ -1,1 +1,1 @@
-web: gunicorn djossy de baby.wsgi
+web: gunicorn djossy.wsgi:application
