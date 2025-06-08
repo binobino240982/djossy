@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.contrib import messages
 from .forms import ImageUploadForm
 from .forms import ProfilForm
+from .models import ImageUpload
 
 def creer_profil(request):
     if request.method == 'POST':
@@ -67,13 +68,20 @@ def export_candidatures_excel(request):
     return HttpResponse("Export Excel - à implémenter")
 
 def upload_image(request):
+    success = False  # Variable pour contrôler l'affichage du succès
+    
     if request.method == 'POST':
         form = ImageUploadForm(request.POST, request.FILES)
         if form.is_valid():
             form.save()
-            return redirect('upload_success')
+            success = True  # Marquer l'upload comme réussi
     else:
         form = ImageUploadForm()
+    
+    return render(request, 'upload_image.html', {
+        'form': form,
+        'success': success  # Passer la variable au template
+    })
     return render(request, 'upload_image.html', {'form': form})
 
 def upload_success(request):

@@ -4,5 +4,9 @@
     {{ form.as_p }}
     <button type="submit">Envoyer</button>
 </form>
-<h2>Image envoyée avec succès !</h2>
-<a href="{% url 'upload_image' %}">Revenir à l’upload</a>
+
+{# Afficher le message de succès seulement si l'upload a réussi #}
+{% if success %}
+    <h2>Image envoyée avec succès !</h2>
+    <a href="{% url 'upload_image' %}">Uploader une autre image</a>
+{% endif %}

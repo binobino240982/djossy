@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Upload d'image</title>
+</head>
+<body>
+    <h2>Upload une image</h2>
+    <form method="post" enctype="multipart/form-data">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit">Envoyer</button>
+    </form>
+
+    {% if success %}
+        <div style="color: green; margin-top: 20px;">
+            <h2>✅ Image envoyée avec succès !</h2>
+            <a href="{% url 'upload_image' %}">Uploader une autre image</a>
+        </div>
+    {% endif %}
+</body>
+</html>

@@ -31,10 +31,8 @@ urlpatterns = [
     # Export
     path('admin/export/candidatures/', views.exporter_candidatures_csv, name='exporter_candidatures_csv'),
     path('admin/export/excel/', views.export_candidatures_excel, name='export_candidatures_excel'),
-    
-    path('upload-test/', upload_image, name='upload_image'),
-    
-    ath('ajouter/', creer_profil, name='creer_profil'),
+
+    path('ajouter/', creer_profil, name='creer_profil'),
     path('success/', lambda request: render(request, 'profils/success.html'), name='profil_success'),
     
     path('upload/', views.upload_image, name='upload_image'),
