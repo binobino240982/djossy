@@ -1,1 +1,1 @@
-web: gunicorn djossy.wsgi:application
+web: gunicorn djossy.wsgi --log-file -

@@ -2,14 +2,36 @@ services:
   - type: web
     name: djossy
     env: python
-    buildCommand: ""
-    startCommand: gunicorn djossy.wsgi
+    buildCommand: "./build.sh"
+    startCommand: "gunicorn djossy.wsgi --log-file -"
     envVars:
-      - key: DJANGO_SETTINGS_MODULE
-        value: djossy.settings
-      - key: PYTHON_VERSION
-        value: 3.11
       - key: SECRET_KEY
-        generateValue: true
+        value: ton_secret_key
       - key: DEBUG
-        value: "True"
+        value: false
+      - key: DB_NAME
+        value: ...
+      - key: DB_USER
+        value: ...
+      - key: DB_PASSWORD
+        value: ...
+      - key: DB_HOST
+        value: ...
+      - key: DB_PORT
+        value: 5432
+      - key: CLOUDINARY_CLOUD_NAME
+        value: ...
+      - key: CLOUDINARY_API_KEY
+        value: ...
+      - key: CLOUDINARY_API_SECRET
+        value: ...
+      - key: EMAIL_HOST
+        value: smtp.gmail.com
+      - key: EMAIL_PORT
+        value: 587
+      - key: EMAIL_USE_TLS
+        value: true
+      - key: EMAIL_HOST_USER
+        value: ...
+      - key: EMAIL_HOST_PASSWORD
+        value: ...
