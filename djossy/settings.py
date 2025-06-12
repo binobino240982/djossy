@@ -1,11 +1,16 @@
 import os
 from pathlib import Path
-from decouple import config
+from decouple import Config, RepositoryEnv  # ✅ cette ligne est essentielle
 import dj_database_url
 import cloudinary
 
-# Base directory
+# 📁 Chargement du fichier .env
 BASE_DIR = Path(__file__).resolve().parent.parent
+env_path = BASE_DIR / '.env'
+config = Config(repository=RepositoryEnv(str(env_path)))
+
+
+print("✅ DATABASE_URL =", config('DATABASE_URL'))
 
 # Clé secrète Django
 SECRET_KEY = config('SECRET_KEY')
@@ -66,15 +71,13 @@ WSGI_APPLICATION = 'djossy.wsgi.application'
 
 # Base de données locale PostgreSQL
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': config('DB_NAME'),
-        'USER': config('DB_USER'),
-        'PASSWORD': config('DB_PASSWORD'),
-        'HOST': config('DB_HOST'),
-        'PORT': config('DB_PORT'),
-    }
+    'default': dj_database_url.config(
+        default=config('DATABASE_URL'),
+        conn_max_age=600,
+        ssl_require=True
+    )
 }
+DATABASES['default']['ENGINE'] = 'django.db.backends.postgresql'
 
 # Authentification personnalisée
 AUTH_USER_MODEL = 'comptes.Utilisateur'
