@@ -1,37 +1,28 @@
 services:
   - type: web
-    name: djossy
+    name: djossy-de-baby
     env: python
-    buildCommand: "./build.sh"
-    startCommand: "gunicorn djossy.wsgi --log-file -"
+    buildCommand: pip install -r requirements.txt
+    startCommand: gunicorn djossy.wsgi:application
     envVars:
-      - key: SECRET_KEY
-        value: ton_secret_key
       - key: DEBUG
-        value: false
-      - key: DB_NAME
-        value: ...
-      - key: DB_USER
-        value: ...
-      - key: DB_PASSWORD
-        value: ...
-      - key: DB_HOST
-        value: ...
-      - key: DB_PORT
-        value: 5432
-      - key: CLOUDINARY_CLOUD_NAME
-        value: ...
-      - key: CLOUDINARY_API_KEY
-        value: ...
-      - key: CLOUDINARY_API_SECRET
-        value: ...
-      - key: EMAIL_HOST
-        value: smtp.gmail.com
-      - key: EMAIL_PORT
-        value: 587
-      - key: EMAIL_USE_TLS
-        value: true
+        value: False
+      - key: SECRET_KEY
+        generateValue: true
+      - key: ALLOWED_HOSTS
+        value: djossy-de-baby.onrender.com
+      - key: DATABASE_URL
+        fromDatabase:
+          name: djossy-db
+          property: connectionString
+      - key: CLOUDINARY_URL
+        sync: false
       - key: EMAIL_HOST_USER
-        value: ...
+        sync: false
       - key: EMAIL_HOST_PASSWORD
-        value: ...
+        sync: false
+
+databases:
+  - name: djossy-db
+    databaseName: djossy_db
+    user: djossy_user

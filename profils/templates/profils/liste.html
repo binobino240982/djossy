@@ -1,0 +1,10 @@
+{% extends 'base.html' %}
+{% block title %}Profils{% endblock %}
+{% block content %}
+<h2>Liste des profils</h2>
+<ul>
+  {% for profil in profils %}
+    <li>{{ profil.nom }} - {{ profil.description }}</li>
+  {% endfor %}
+</ul>
+{% endblock %}
