@@ -1,6 +1,8 @@
 from django.urls import path
 from . import views
 
+app_name = 'comptes'
+
 urlpatterns = [
     path('login/', views.connexion_utilisateur, name='connexion'),  # URL de connexion (login)
     path('logout/', views.deconnexion_utilisateur, name='deconnexion'),  # Déconnexion

@@ -27,6 +27,7 @@ INSTALLED_APPS = [
     'comptes.apps.ComptesConfig',
     'profils.apps.ProfilsConfig',
     'personnel.apps.PersonnelConfig',
+    'gestion_admin.apps.GestionAdminConfig',  # Ajoutez cette ligne
 
     # Autres apps
     'cloudinary',
@@ -54,7 +55,9 @@ ROOT_URLCONF = 'djossy_de_baby.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [BASE_DIR / 'templates'],  # si tu as un dossier templates/
+        'DIRS': [
+            BASE_DIR / 'templates',
+        ],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [

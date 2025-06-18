@@ -1,0 +1,38 @@
+{% extends 'base.html' %}
+
+{% block title %}Tableau de bord{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <h1>Tableau de bord d'administration</h1>
+    
+    <div class="row mt-4">
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Utilisateurs</h5>
+                    <p class="card-text">Nombre total : {{ nombre_utilisateurs }}</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Employeurs</h5>
+                    <p class="card-text">Nombre total : {{ nombre_employeurs }}</p>
+                </div>
+            </div>
+        </div>
+        
+        <div class="col-md-4">
+            <div class="card">
+                <div class="card-body">
+                    <h5 class="card-title">Candidats</h5>
+                    <p class="card-text">Nombre total : {{ nombre_candidats }}</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,12 +1,35 @@
-<!-- gestion_admin/templates/gestion_admin/dashboard.html -->
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <meta charset="UTF-8">
-    <title>Dashboard</title>
-</head>
-<body>
-    <h1>Bienvenue sur le dashboard</h1>
-    <p>Ceci est la page d'accueil du tableau de bord.</p>
-</body>
-</html>
+{% extends 'base.html' %}
+
+{% block title %}Tableau de bord administratif{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h1>Tableau de bord</h1>
+        <a href="{% url 'admin_dashboard:candidatures' %}" class="btn btn-primary">
+            <i class="bi bi-list-check"></i> Voir les candidatures
+        </a>
+    </div>
+
+    <div class="row mt-4">
+        <div class="col-md-4">
+            <div class="card border-primary mb-3">
+                <div class="card-body">
+                    <h5 class="card-title text-primary">
+                        <i class="bi bi-people-fill"></i> Utilisateurs
+                    </h5>
+                    <p class="card-text display-4">{{ nombre_utilisateurs }}</p>
+                    <a href="{% url 'admin:comptes_utilisateur_changelist' %}" 
+                       class="btn btn-outline-primary">Gérer</a>
+                </div>
+            </div>
+        </div>
+
+        <!-- ...existing code for other cards... -->
+    </div>
+</div>
+{% endblock %}
+
+{% block extra_css %}
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css">
+{% endblock %}

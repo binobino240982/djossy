@@ -3,14 +3,21 @@ from django.contrib.auth.decorators import login_required, user_passes_test
 from django.contrib.admin.views.decorators import staff_member_required
 from django.db.models import Count
 from personnel.models import Candidature, DemandePersonnel
+from comptes.models import Utilisateur  # Ajoutez cette ligne
 
 # ✅ Fonction de vérification pour les accès admin
 def est_admin(user):
     return user.is_staff
 
-# --- 1. Accueil public du dashboard ---
+# --- 1. Accueil du dashboard ---
+@login_required
 def accueil_dashboard(request):
-    return render(request, 'gestion_admin/dashboard.html')
+    context = {
+        'nombre_utilisateurs': Utilisateur.objects.count(),
+        'nombre_employeurs': Utilisateur.objects.filter(est_employeur=True).count(),
+        'nombre_candidats': Utilisateur.objects.filter(est_candidat=True).count(),
+    }
+    return render(request, 'gestion_admin/dashboard.html', context)
 
 # --- 2. Vue admin : Statistiques simples (réservée staff/admin) ---
 @staff_member_required
