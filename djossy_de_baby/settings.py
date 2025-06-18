@@ -74,19 +74,12 @@ TEMPLATES = [
 WSGI_APPLICATION = 'djossy_de_baby.wsgi.application'
 
 # === DATABASE ===
-# ...existing code...
-
-# ...existing code...
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.sqlite3',
         'NAME': BASE_DIR / 'db.sqlite3',
     }
 }
-# ...existing code...
-# Supprimez ou commentez la ligne suivante si elle existe
-# DATABASES['default']['ENGINE'] = 'django.db.backends.postgresql'
-# ...existing code...
 
 # === PASSWORD VALIDATION ===
 AUTH_PASSWORD_VALIDATORS = [
@@ -108,13 +101,20 @@ STATIC_ROOT = BASE_DIR / 'staticfiles'
 STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # === MEDIA & CLOUDINARY ===
-DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
+CLOUDINARY_STORAGE = {
+    'CLOUD_NAME': config('CLOUDINARY_CLOUD_NAME', default=''),
+    'API_KEY': config('CLOUDINARY_API_KEY', default=''),
+    'API_SECRET': config('CLOUDINARY_API_SECRET', default='')
+}
 
 cloudinary.config(
-    cloud_name=config('CLOUDINARY_CLOUD_NAME'),
-    api_key=config('CLOUDINARY_API_KEY'),
-    api_secret=config('CLOUDINARY_API_SECRET'),
+    cloud_name=config('CLOUDINARY_CLOUD_NAME', default=''),
+    api_key=config('CLOUDINARY_API_KEY', default=''),
+    api_secret=config('CLOUDINARY_API_SECRET', default=''),
+    secure=True
 )
+
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'
 
 # === EMAIL CONFIGURATION (Gmail) ===
 EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
