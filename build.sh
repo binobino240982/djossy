@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
-# exit on error
 set -o errexit
 
-# Install dependencies
-pip install -r requirements.txt
+# Installing dependencies
+pip install --no-cache-dir -r requirements.txt
+pip install --no-cache-dir psycopg2-binary
 
-# Run migrations
+# Running migrations
 python manage.py migrate
 
-# Collect static files
-python manage.py collectstatic --no-input
+# Collecting static files
+python manage.py collectstatic --no-input --clear
