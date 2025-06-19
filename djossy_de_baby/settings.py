@@ -13,6 +13,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = config('SECRET_KEY', default='your-secret-key')
 DEBUG = config('DEBUG', default=False, cast=bool)  # Utiliser une variable d'environnement pour DEBUG
 ALLOWED_HOSTS = ['djossy-de-baby.onrender.com', 'localhost', '127.0.0.1']
+CSRF_TRUSTED_ORIGINS = ['https://djossy-de-baby.onrender.com']
 
 # === APPLICATIONS ===
 INSTALLED_APPS = [
@@ -76,9 +77,9 @@ WSGI_APPLICATION = 'djossy_de_baby.wsgi.application'
 # === DATABASE ===
 DATABASES = {
     'default': dj_database_url.config(
-        default=config('DATABASE_URL'),
+        default='sqlite:///' + str(BASE_DIR / 'db.sqlite3'),
         conn_max_age=600,
-        ssl_require=True  # Ajoutez cette ligne pour forcer l'utilisation de SSL
+        conn_health_checks=True,
     )
 }
 
@@ -88,7 +89,6 @@ STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
 
 # Ajout de configurations pour Render
 SECURE_SSL_REDIRECT = config('SECURE_SSL_REDIRECT', default=True, cast=bool)  # Redirection HTTPS
-CSRF_TRUSTED_ORIGINS = config('CSRF_TRUSTED_ORIGINS', default='https://your-render-app.onrender.com', cast=lambda v: v.split(','))  # Origines de confiance pour CSRF
 
 # === PASSWORD VALIDATION ===
 AUTH_PASSWORD_VALIDATORS = [
