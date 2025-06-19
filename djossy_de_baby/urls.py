@@ -5,12 +5,11 @@ from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('gestion_admin.urls')),
-    path('profil/', include('profils.urls')),
-    path('recrutement/', include('recrutement.urls')),
+    path('', include('comptes.urls')),  # URLs de l'application comptes
+    path('profils/', include('profils.urls')),
     path('personnel/', include('personnel.urls')),
-    path('comptes/', include('comptes.urls')),
-]
+    path('gestion/', include('gestion_admin.urls')),
+] + static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
 
-if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+# Gestion des erreurs
+handler404 = 'comptes.views.custom_404'  # Vue personnalisée pour les erreurs 404

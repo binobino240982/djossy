@@ -1,12 +1,14 @@
 #!/usr/bin/env bash
 set -o errexit
 
-# Installing dependencies
+# Mise à jour de pip
+python -m pip install --upgrade pip
+
+# Installation des dépendances
 pip install --no-cache-dir -r requirements.txt
-pip install --no-cache-dir psycopg2-binary
 
-# Running migrations
-python manage.py migrate
-
-# Collecting static files
+# Nettoyage des fichiers statiques existants
 python manage.py collectstatic --no-input --clear
+
+# Migrations de la base de données
+python manage.py migrate --noinput

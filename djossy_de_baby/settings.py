@@ -15,6 +15,12 @@ DEBUG = config('DEBUG', default=False, cast=bool)  # Utiliser une variable d'env
 ALLOWED_HOSTS = ['djossy-de-baby.onrender.com', 'localhost', '127.0.0.1']
 CSRF_TRUSTED_ORIGINS = ['https://djossy-de-baby.onrender.com']
 
+# Paramètres de sécurité pour Render
+SECURE_SSL_REDIRECT = config('SECURE_SSL_REDIRECT', default=True, cast=bool)  # Redirection HTTPS
+SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
+SESSION_COOKIE_SECURE = True
+CSRF_COOKIE_SECURE = True
+
 # === APPLICATIONS ===
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -137,6 +143,11 @@ EMAIL_USE_TLS = config('EMAIL_USE_TLS', default=True, cast=bool)
 EMAIL_HOST_USER = config('EMAIL_HOST_USER', default='')
 EMAIL_HOST_PASSWORD = config('EMAIL_HOST_PASSWORD', default='')
 DEFAULT_FROM_EMAIL = config('EMAIL_HOST_USER', default='')
+
+# === AUTH CONFIGURATION ===
+LOGIN_URL = 'comptes:login'
+LOGIN_REDIRECT_URL = 'comptes:home'
+LOGOUT_REDIRECT_URL = 'comptes:login'
 
 # === DEFAULT AUTO FIELD ===
 DEFAULT_AUTO_FIELD = 'django.db.models.BigAutoField'

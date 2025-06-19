@@ -96,3 +96,26 @@ def verifier_utilisateur(request):
     except Utilisateur.DoesNotExist:
         messages.error(request, "Aucun utilisateur trouvé avec cet email.")
         return redirect('liste_profils')
+
+def custom_404(request, exception):
+    return render(request, '404.html', status=404)
+
+def home(request):
+    if not request.user.is_authenticated:
+        return redirect('comptes:login')
+    return render(request, 'comptes/home.html')
+
+def login_view(request):
+    if request.method == 'POST':
+        form = AuthenticationForm(request, data=request.POST)
+        if form.is_valid():
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password')
+            user = authenticate(username=username, password=password)
+            if user is not None:
+                login(request, user)
+                next_url = request.GET.get('next', 'comptes:home')
+                return redirect(next_url)
+    else:
+        form = AuthenticationForm()
+    return render(request, 'comptes/login.html', {'form': form})
