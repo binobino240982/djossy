@@ -11,8 +11,8 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 
 # === SECURITY ===
 SECRET_KEY = config('SECRET_KEY', default='your-secret-key')
-DEBUG = config('DEBUG', default=False, cast=bool)
-ALLOWED_HOSTS = config('ALLOWED_HOSTS', default='127.0.0.1,localhost').split(',')
+DEBUG = config('DEBUG', default=False, cast=bool)  # Utiliser une variable d'environnement pour DEBUG
+ALLOWED_HOSTS = ['djossy-de-baby.onrender.com', 'localhost', '127.0.0.1']
 
 # === APPLICATIONS ===
 INSTALLED_APPS = [
@@ -75,11 +75,20 @@ WSGI_APPLICATION = 'djossy_de_baby.wsgi.application'
 
 # === DATABASE ===
 DATABASES = {
-    'default': {
-        'ENGINE': 'django.db.backends.sqlite3',
-        'NAME': BASE_DIR / 'db.sqlite3',
-    }
+    'default': dj_database_url.config(
+        default=config('DATABASE_URL'),
+        conn_max_age=600,
+        ssl_require=True  # Ajoutez cette ligne pour forcer l'utilisation de SSL
+    )
 }
+
+# Static files
+STATIC_ROOT = BASE_DIR / 'staticfiles'
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+
+# Ajout de configurations pour Render
+SECURE_SSL_REDIRECT = config('SECURE_SSL_REDIRECT', default=True, cast=bool)  # Redirection HTTPS
+CSRF_TRUSTED_ORIGINS = config('CSRF_TRUSTED_ORIGINS', default='https://your-render-app.onrender.com', cast=lambda v: v.split(','))  # Origines de confiance pour CSRF
 
 # === PASSWORD VALIDATION ===
 AUTH_PASSWORD_VALIDATORS = [
@@ -97,8 +106,12 @@ USE_TZ = True
 
 # === STATIC FILES ===
 STATIC_URL = '/static/'
-STATIC_ROOT = BASE_DIR / 'staticfiles'
-STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'
+STATIC_ROOT = BASE_DIR / 'staticfiles'  # Configuration des fichiers statiques
+
+MEDIA_URL = '/media/'
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')  # Configuration des fichiers médias
+
+STATICFILES_STORAGE = 'whitenoise.storage.CompressedManifestStaticFilesStorage'  # Assurez-vous que Whitenoise est configuré
 
 # === MEDIA & CLOUDINARY ===
 CLOUDINARY_STORAGE = {

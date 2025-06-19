@@ -3,13 +3,7 @@ from django.contrib.auth.forms import UserCreationForm
 from .models import Utilisateur, Profil
 
 class InscriptionForm(UserCreationForm):
-    class Meta:
-        model = Utilisateur
-        fields = ['username', 'email', 'password1', 'password2']
-
-class ConnexionForm(forms.Form):
-    username = forms.CharField(label='Nom d\'utilisateur')
-    password = forms.CharField(label='Mot de passe', widget=forms.PasswordInput)
+    email = forms.EmailField(required=True, help_text="Entrez une adresse email valide.")
     
     class Meta:
         model = Utilisateur
@@ -21,8 +15,12 @@ class ConnexionForm(forms.Form):
             raise forms.ValidationError("Cet email est déjà utilisé.")
         return email
 
+class ConnexionForm(forms.Form):
+    username = forms.CharField(label='Nom d\'utilisateur', help_text="Entrez votre nom d'utilisateur.")
+    password = forms.CharField(label='Mot de passe', widget=forms.PasswordInput, help_text="Entrez votre mot de passe.")
+
 class EmployeurForm(UserCreationForm):
-    email = forms.EmailField(required=True)
+    email = forms.EmailField(required=True, help_text="Entrez une adresse email valide.")
     
     class Meta:
         model = Utilisateur
@@ -36,7 +34,7 @@ class EmployeurForm(UserCreationForm):
         return user
 
 class CandidatForm(UserCreationForm):
-    email = forms.EmailField(required=True)
+    email = forms.EmailField(required=True, help_text="Entrez une adresse email valide.")
     
     class Meta:
         model = Utilisateur

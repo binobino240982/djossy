@@ -2,7 +2,6 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .forms import InscriptionForm, ConnexionForm
 from django.contrib.auth.forms import AuthenticationForm
 from .models import Utilisateur, Profil
 from .forms import InscriptionForm, EmployeurForm, CandidatForm, ProfilForm
@@ -14,17 +13,6 @@ def detail_profil(request, profil_id):
 def liste_profils(request):
     profils = Profil.objects.all()
     return render(request, 'profils/liste_profils.html', {'profils': profils})
-
-def inscription(request):
-    if request.method == 'POST':
-        form = InscriptionForm(request.POST)
-        if form.is_valid():
-            user = form.save()
-            login(request, user)
-            return redirect('accueil')
-    else:
-        form = InscriptionForm()
-    return render(request, 'comptes/inscription.html', {'form': form})
 
 def inscription_view(request):
     if request.method == 'POST':
@@ -97,3 +85,14 @@ def deconnexion_utilisateur(request):
     logout(request)
     messages.info(request, "Vous avez été déconnecté.")
     return redirect('connexion')
+
+def verifier_utilisateur(request):
+    try:
+        utilisateur = Utilisateur.objects.get(email='email_en_conflit')
+        utilisateur.email = 'nouveau_email_unique@example.com'
+        utilisateur.save()
+        messages.success(request, "Email de l'utilisateur mis à jour avec succès.")
+        return redirect('liste_profils')
+    except Utilisateur.DoesNotExist:
+        messages.error(request, "Aucun utilisateur trouvé avec cet email.")
+        return redirect('liste_profils')
