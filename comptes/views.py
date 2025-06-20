@@ -81,10 +81,10 @@ def connexion_utilisateur(request):
         form = AuthenticationForm()
     return render(request, 'comptes/connexion.html', {'form': form})
 
-def deconnexion_utilisateur(request):
+def logout_view(request):
     logout(request)
     messages.info(request, "Vous avez été déconnecté.")
-    return redirect('connexion')
+    return redirect('comptes:login')
 
 def verifier_utilisateur(request):
     try:

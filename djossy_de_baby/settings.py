@@ -10,7 +10,7 @@ import cloudinary.api
 BASE_DIR = Path(__file__).resolve().parent.parent
 
 # === SECURITY ===
-SECRET_KEY = config('SECRET_KEY', default='your-secret-key')
+SECRET_KEY = config('SECRET_KEY')  # Suppression de la valeur par défaut pour plus de sécurité
 DEBUG = config('DEBUG', default=False, cast=bool)  # Utiliser une variable d'environnement pour DEBUG
 ALLOWED_HOSTS = ['djossy-de-baby.onrender.com', 'localhost', '127.0.0.1']
 CSRF_TRUSTED_ORIGINS = ['https://djossy-de-baby.onrender.com']
@@ -83,7 +83,7 @@ WSGI_APPLICATION = 'djossy_de_baby.wsgi.application'
 # === DATABASE ===
 DATABASES = {
     'default': dj_database_url.config(
-        default='sqlite:///' + str(BASE_DIR / 'db.sqlite3'),
+        default=config('DATABASE_URL'),
         conn_max_age=600,
         conn_health_checks=True,
     )

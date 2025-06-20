@@ -1,14 +1,12 @@
 #!/usr/bin/env bash
 set -o errexit
 
-# Mise à jour de pip
+# Mise à jour de pip et installation des dépendances
 python -m pip install --upgrade pip
-
-# Installation des dépendances
 pip install --no-cache-dir -r requirements.txt
 
-# Nettoyage des fichiers statiques existants
+# Nettoyage et collecte des fichiers statiques
 python manage.py collectstatic --no-input --clear
 
-# Migrations de la base de données
+# Application des migrations
 python manage.py migrate --noinput
